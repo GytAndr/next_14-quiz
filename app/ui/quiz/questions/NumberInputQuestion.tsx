@@ -3,6 +3,7 @@
 import React, { ChangeEvent, useState } from 'react';
 
 import { NumberInputQuestionProps } from '@/app/types/questionTypes';
+import { useQuizContext } from '@/app/context/QuizContext';
 
 import TextButton from '../../TextButton';
 import TypedInput from '../../TypedInput';
@@ -13,15 +14,17 @@ const NumberInputQuestion = ({
     buttonText,
     questionKey,
 }: NumberInputQuestionProps) => {
-    // const { totalQuestions, answers, setAnswers } = useQuizContext();
-    const [value, setValue] = useState<string>('');
+    const { answers, setAnswers } = useQuizContext();
+    const [value, setValue] = useState<string>(
+        (answers[questionKey] as string) || ''
+    );
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        // setValue(event.target.value);
-        // setAnswers((prevAnswers) => ({
-        //     ...prevAnswers,
-        //     [questionKey]: event.target.value,
-        // }));
+        setValue(event.target.value);
+        setAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [questionKey]: event.target.value,
+        }));
     };
 
     return (
@@ -37,6 +40,7 @@ const NumberInputQuestion = ({
                 disabled={value.length === 0}
                 classNames="xs:min-w-[21.4rem] min-w-72"
                 text={buttonText}
+                href="/analyze"
             />
         </div>
     );

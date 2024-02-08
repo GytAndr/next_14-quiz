@@ -3,8 +3,11 @@
 import React, { useState } from 'react';
 import Markdown from 'react-markdown';
 import { useParams, useRouter } from 'next/navigation';
+
 import { SingleAnswerQuestionProps } from '@/app/types/questionTypes';
 import { Routes } from '@/app/routes';
+import { useQuizContext } from '@/app/context/QuizContext';
+
 import AnswerByType from '../answers/AnswerByType';
 
 const SingleAnswerQuestion = ({
@@ -15,20 +18,21 @@ const SingleAnswerQuestion = ({
 }: SingleAnswerQuestionProps) => {
     const router = useRouter();
     const { id: currentQuestion } = useParams();
-
-    const [selectedAnswers, setSelectedAnswers] = useState<string>();
-    // answers[questionKey] as string
+    const { answers, setAnswers } = useQuizContext();
+    const [selectedAnswers, setSelectedAnswers] = useState<string>(
+        answers[questionKey] as string
+    );
 
     const navigateToNext = () => {
         router.push(`${Routes.QUIZ}/${+currentQuestion + 1}`);
     };
 
     const onAnswerSelect = (value: string) => {
-        // setSelectedAnswers(value);
-        // setAnswers((prevAnswers) => ({
-        //     ...prevAnswers,
-        //     [questionKey]: value,
-        // }));
+        setSelectedAnswers(value);
+        setAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [questionKey]: value,
+        }));
         if (currentQuestion === '1' && value != 'improve_body_areas') {
             router.push(Routes.QUIZ + `/${+currentQuestion + 2}`);
         } else {

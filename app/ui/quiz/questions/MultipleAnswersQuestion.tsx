@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 
 import { MultipleAnswerQuestionProps } from '@/app/types/questionTypes';
+import { useQuizContext } from '@/app/context/QuizContext';
 
 import TextButton from '../../TextButton';
 import AnswerByType from '../answers/AnswerByType';
@@ -14,31 +15,35 @@ const MultipleAnswersQuestion = ({
     buttonText,
     questionKey,
 }: MultipleAnswerQuestionProps) => {
-    const [selectedAnswers, setSelectedAnswers] = useState<string>();
+    const { answers, setAnswers } = useQuizContext();
+    const [selectedAnswers, setSelectedAnswers] = useState<string[]>(
+        (answers[questionKey] as string[]) || []
+    );
+
     const removeAnswer = (value: string) => {
-        // setSelectedAnswers(
-        //     selectedAnswers.filter((answer) => answer !== value)
-        // );
-        // setAnswers((prevAnswers) => ({
-        //     ...prevAnswers,
-        //     [questionKey]: selectedAnswers.filter((answer) => answer !== value),
-        // }));
+        setSelectedAnswers(
+            selectedAnswers.filter((answer) => answer !== value)
+        );
+        setAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [questionKey]: selectedAnswers.filter((answer) => answer !== value),
+        }));
     };
 
     const updateAnswers = (value: string) => {
-        // setSelectedAnswers([...selectedAnswers, value]);
-        // setAnswers((prevAnswers) => ({
-        //     ...prevAnswers,
-        //     [questionKey]: [...selectedAnswers, value],
-        // }));
+        setSelectedAnswers([...selectedAnswers, value]);
+        setAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [questionKey]: [...selectedAnswers, value],
+        }));
     };
 
     const onAnswerSelect = (value: string) => {
-        // if (selectedAnswers.includes(value)) {
-        //     removeAnswer(value);
-        //     return;
-        // }
-        // updateAnswers(value);
+        if (selectedAnswers.includes(value)) {
+            removeAnswer(value);
+            return;
+        }
+        updateAnswers(value);
     };
 
     return (
@@ -64,7 +69,7 @@ const MultipleAnswersQuestion = ({
             </div>
             <TextButton
                 classNames="xs:min-w-[21.4rem] min-w-72"
-                // disabled={selectedAnswers.length === 0}
+                disabled={selectedAnswers.length === 0}
                 text={buttonText}
             />
         </div>

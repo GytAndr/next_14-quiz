@@ -9,7 +9,7 @@ import { Routes } from '../routes';
 
 type Props = {
     text: string;
-    href: string;
+    href?: string;
     disabled?: boolean;
     classNames?: string;
 };

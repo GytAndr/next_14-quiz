@@ -1,4 +1,6 @@
-import { ReactNode, useState, createContext, useContext } from 'react';
+'use client';
+
+import { ReactNode, useState, createContext, useContext, use } from 'react';
 
 import { AnswersType, QuizContextProps } from '../types/contextTypes';
 

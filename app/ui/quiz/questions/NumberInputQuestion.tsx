@@ -1,10 +1,8 @@
 'use client';
 
 import React, { ChangeEvent, useState } from 'react';
-import { useParams } from 'next/navigation';
 
 import { NumberInputQuestionProps } from '@/app/types/questionTypes';
-import { Routes } from '@/app/routes';
 
 import TextButton from '../../TextButton';
 import TypedInput from '../../TypedInput';
@@ -15,7 +13,6 @@ const NumberInputQuestion = ({
     buttonText,
     questionKey,
 }: NumberInputQuestionProps) => {
-    const { id: currentQuestion } = useParams();
     // const { totalQuestions, answers, setAnswers } = useQuizContext();
     const [value, setValue] = useState<string>('');
 
@@ -40,7 +37,6 @@ const NumberInputQuestion = ({
                 disabled={value.length === 0}
                 classNames="xs:min-w-[21.4rem] min-w-72"
                 text={buttonText}
-                href={Routes.QUIZ + `/${+currentQuestion + 1}`}
             />
         </div>
     );

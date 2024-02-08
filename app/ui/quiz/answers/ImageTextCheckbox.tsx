@@ -1,7 +1,8 @@
-import { AnswerProps } from '@/app/types/answerTypes';
 import clsx from 'clsx';
 import Image from 'next/image';
 import React from 'react';
+
+import { AnswerProps } from '@/app/types/answerTypes';
 import * as Checkbox from '@radix-ui/react-checkbox';
 
 const ImageTextCheckbox = ({
@@ -34,17 +35,13 @@ const ImageTextCheckbox = ({
                     {label}
                 </p>
             </div>
-            <Checkbox.Root>
-                <Checkbox.Indicator />
-            </Checkbox.Root>
-            {/* <Checkbox
-                size="3"
+            <Checkbox.Root
+                checked={isChecked as boolean}
                 className={clsx(
                     'rounded-full w-6 h-6 flex  justify-center',
                     isChecked ? 'bg-purple' : 'bg-lightGray'
                 )}
-                checked={isChecked as boolean}
-            /> */}
+            />
         </div>
     );
 };

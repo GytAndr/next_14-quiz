@@ -1,12 +1,14 @@
-import { fetchQuestionById } from '@/app/lib/data';
 import React from 'react';
-import SingleAnswerQuestion from './questions/SingleAnswerQuestion';
+
+import { fetchQuestionById } from '@/app/lib/data';
 import {
     AdviceProps,
     MultipleAnswerQuestionProps,
     NumberInputQuestionProps,
     SingleAnswerQuestionProps,
 } from '@/app/types/questionTypes';
+
+import SingleAnswerQuestion from './questions/SingleAnswerQuestion';
 import MultipleAnswersQuestion from './questions/MultipleAnswersQuestion';
 import Advice from './questions/Advice';
 import NumberInputQuestion from './questions/NumberInputQuestion';

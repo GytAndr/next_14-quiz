@@ -1,6 +1,11 @@
+'use client';
+
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import React from 'react';
+
+import { Routes } from '../routes';
 
 type Props = {
     text: string;
@@ -15,9 +20,10 @@ export default function TextButton({
     disabled,
     classNames,
 }: Props) {
+    const { id: currentQuestion } = useParams();
     return (
         <Link
-            href={href}
+            href={href || Routes.QUIZ + `/${+currentQuestion + 1}`}
             className={disabled ? 'pointer-events-none' : 'pointer-events-auto'}
         >
             <button

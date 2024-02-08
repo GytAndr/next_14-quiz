@@ -1,11 +1,16 @@
 import React, { ReactNode } from 'react';
 
 import Navbar from '@/app/ui/navbar';
+import { fetchAllQuestions } from '@/app/lib/data';
 
-const QuizLayout = ({ children }: { children: ReactNode }) => {
+const QuizLayout = async ({ children }: { children: ReactNode }) => {
+    const totalQuestions = await fetchAllQuestions().then(
+        (questions) => questions.length
+    );
+
     return (
         <main>
-            <Navbar />
+            <Navbar totalQuestions={totalQuestions} />
             {children}
         </main>
     );
